@@ -16,7 +16,6 @@ def pageAvaliable(chapter):
     #looks for chapter title to confirm valid page
     try:
         title = soup.find("h1",{"class": "entry-title"})
-        print(title.text)
         page = True
     except:
         page = False
@@ -69,6 +68,8 @@ if page & avalible == True:
     logSave(chapter)
 else:
     print("chapter: not avaliable")
+
+input("press enter to close")
 
 
 
