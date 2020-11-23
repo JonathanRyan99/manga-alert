@@ -64,6 +64,7 @@ print("chapter: ",chapter)
 page, avalible, url = pageAvaliable(chapter)
 
 if page & avalible == True:
+    print("chapter avaliable")
     webbrowser.open_new_tab(url)
     logSave(chapter)
 else:
