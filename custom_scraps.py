@@ -9,20 +9,24 @@ def readHeroAcademia(chapter):
     #looks for chapter title to confirm valid page
     try:
         title = soup.find("h1",{"class": "entry-title"})
+        print(title.text) # if you delete this line it breaks, page will always return TRUE i have no idea why
         page = True
     except:
         page = False
 
-    if page == True:
-        #looks for upload timer, if present then the chapter has not been released
-        try:
-            countdown = soup.find("div",{"class": "entry-content"})
-            countdown = countdown.h1.strong
-            avalible = False
-        except:
-            avalible = True
+#looks for upload timer, if present then the chapter has not been released
+    try:
+        countdown = soup.find("div",{"class": "entry-content"})
+        countdown = countdown.h1.strong
+        countdown = True
+    except:
+        countdown = False
 
-    return url
+    #print("page: ", page , "countdown: ", countdown)
+    if (page == True) & (countdown == False):
+        return url     
+        
+    
 
 
 
@@ -42,5 +46,9 @@ def NEL(url,chapter):
 
 
 
-link = NEL("https://manganelo.com/manga/zo921845",2)
+#link = NEL("https://manganelo.com/manga/zo921845",2)
+#print(link)
+
+
+link = readHeroAcademia(200)
 print(link)
