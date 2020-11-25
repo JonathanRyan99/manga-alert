@@ -4,7 +4,7 @@
 from bs4 import BeautifulSoup
 import requests
 import webbrowser
-
+import sys
 
 
 
@@ -70,6 +70,7 @@ else:
     print("chapter: not avaliable")
 
 input("press enter to close")
+sys.exit(0)
 
 
 
