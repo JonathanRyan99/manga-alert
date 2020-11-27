@@ -46,9 +46,5 @@ def NEL(url,chapter):
 
 
 
-#link = NEL("https://manganelo.com/manga/zo921845",2)
-#print(link)
 
 
-link = readHeroAcademia(200)
-print(link)

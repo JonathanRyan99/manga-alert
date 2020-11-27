@@ -7,21 +7,17 @@ import webbrowser
 import sys
 
 
-def academia():
-    chapter = log_control.logCheck()
-    print("chapter: ",chapter)
-
-    avalible, url = custom_scraps.readHeroAcademia(chapter)
-
-    if  avalible == True:
-        print("chapter avaliable")
-        webbrowser.open_new_tab(url)
-        log_control.logSave(chapter)
-    else:
-        print("chapter: not avaliable")
 
 
-academia()
+
+chapter = 20
+#link = custom_scraps.readHeroAcademia(chapter)
+link = custom_scraps.NEL("https://manganelo.com/manga/hn918480",chapter)
+try:
+    webbrowser.open(link)
+except: 
+    print("chapter:",chapter, " not found")
+
 input("press enter to close")
 sys.exit(0)
 
