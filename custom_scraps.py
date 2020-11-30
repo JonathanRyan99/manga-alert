@@ -1,8 +1,8 @@
 from bs4 import BeautifulSoup
 import requests
 
-def readHeroAcademia(chapter):
-    url = "https://w20.readheroacademia.com/manga/boku-no-hero-academia-chapter-" + str(chapter) + "/"
+def readHeroAcademia(url,chapter):
+    url = url + str(chapter)
     req = requests.get(url)
     soup = BeautifulSoup(req.text, "html.parser")
 
@@ -29,7 +29,7 @@ def readHeroAcademia(chapter):
     
 
 
-
+#url is manga root page
 def NEL(url,chapter):
     req = requests.get(url)
     soup = BeautifulSoup(req.text, "html.parser")
@@ -43,6 +43,8 @@ def NEL(url,chapter):
             #print(link)
             return link
     
+
+
 
 
 

@@ -18,6 +18,17 @@ try:
 except: 
     print("chapter:",chapter, " not found")
 
+link = custom_scraps.readHeroAcademia("https://w20.readheroacademia.com/manga/boku-no-hero-academia-chapter-",chapter)
+try:
+    webbrowser.open(link)
+except: 
+    print("chapter:",chapter, " not found")
+
+
+
+
+
+
 input("press enter to close")
 sys.exit(0)
 
