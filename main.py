@@ -25,10 +25,6 @@ except:
     print("chapter:",chapter, " not found")
 
 
-
-
-
-
 input("press enter to close")
 sys.exit(0)
 
