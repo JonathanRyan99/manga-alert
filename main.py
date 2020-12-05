@@ -1,10 +1,7 @@
-#this program is made specifically this website as of 23/11/2020 
-#https://w20.readheroacademia.com/
 
 import custom_scraps
 import log_control
 import webbrowser
-# import tkinter as tk
 from tkinter import *
 
 
