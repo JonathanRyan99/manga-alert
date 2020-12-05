@@ -3,7 +3,10 @@ import custom_scraps
 import log_control
 import webbrowser
 from tkinter import *
-
+#to do
+#add a "new tracker button" so the user can start adding trackers in case of blank log.csv
+#add "delete tracker button to frame"
+#refresh interface after writing to file
 
 class program():
 
@@ -38,7 +41,8 @@ class program():
         else:
             self.button = Button(location, text="open", command= lambda: (self.openLink(link), self.incrementLog(logItem) ) )
             self.button.grid(row=(0+i),column= 2)
-            
+
+
     def incrementLog(self,logItem):
         for item in self.logContents:
             if item['title'] == logItem['title']:
