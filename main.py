@@ -25,14 +25,21 @@ class program():
             return link
 
     def addFrame(self,location,logItem,i):
-        link = self.getChapterRelease(logItem)
-        self.button = Button(location, text="open", command= lambda: self.openLink(link))
-        self.button.grid(row=(0+i),column= 0)
-
         self.label = Label(location, text=logItem['title'])
-        self.label.grid(row=(0+i),column=1)
+        self.label.grid(row=(0+i),column=0)
 
-    
+        self.label = Label(location, text=logItem['chapter'])
+        self.label.grid(row=(0+i),column=1)
+        
+        link = self.getChapterRelease(logItem)
+        if (str(link) == "None"):
+            self.button = Button(location, text="open", state=DISABLED)
+            self.button.grid(row=(0+i),column= 2)
+        else:
+            self.button = Button(location, text="open", command= lambda: self.openLink(link))
+            self.button.grid(row=(0+i),column= 2)
+            
+
     def openLink(self,link):
         print(link)
 

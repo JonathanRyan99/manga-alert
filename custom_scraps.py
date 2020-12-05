@@ -8,7 +8,8 @@ def readHeroAcademia(url,chapter):
     soup = BeautifulSoup(req.text, "html.parser")
     chapterlist = soup.find("table",{"class": "chap_tab"})
     chapterlist = chapterlist.find_all("a")
-    
+    #  THIS METHOD DOESNT WORK FOR CHAPTERS BEFORE THE HALF ISSUES
+
     #chapter list has newest issue as [0]
     released = len(chapterlist)
     #issue of set is how many half issues there are these add an idex[] to the chapterlist without changing chapter number

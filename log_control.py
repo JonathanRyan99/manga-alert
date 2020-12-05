@@ -24,7 +24,7 @@ def readFromLog():
         
 
 
-writeToLog()
+
 
 # for i in range(len(log_contents)):
 #     print(log_contents[i]['title'])
