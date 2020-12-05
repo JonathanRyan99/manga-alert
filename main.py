@@ -39,7 +39,7 @@ class program():
             self.button = Button(location, text="open", command= lambda: self.openLink(link))
             self.button.grid(row=(0+i),column= 2)
             
-
+    
     def openLink(self,link):
         webbrowser.open(link)
 
