@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 
-#find a better was to accomodate the new half issues
 
 def readHeroAcademia(url,chapter):
     #gets chapter list in bs4 object
@@ -18,7 +17,7 @@ def readHeroAcademia(url,chapter):
     chapter = chapter + issueOfSet 
     current = released - chapter 
     if (current <= released) & (current >= 0):
-        print(chapterlist[current])
+        #print(chapterlist[current])
         link = chapterlist[current].get("href")
         return link
     
@@ -48,5 +47,3 @@ def NELO(url,chapter):
 
 
 
-link = readHeroAcademia("https://w20.readheroacademia.com/",293)
-print(link)
