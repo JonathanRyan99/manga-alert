@@ -36,10 +36,21 @@ class program():
             self.button = Button(location, text="open", state=DISABLED)
             self.button.grid(row=(0+i),column= 2)
         else:
-            self.button = Button(location, text="open", command= lambda: self.openLink(link))
+            self.button = Button(location, text="open", command= lambda: (self.openLink(link), self.incrementLog(logItem) ) )
             self.button.grid(row=(0+i),column= 2)
             
+    def incrementLog(self,logItem):
+        for item in self.logContents:
+            if item['title'] == logItem['title']:
+                chapter = int(item['chapter'])
+                item['chapter'] = str(chapter + 1)
+        
+        self.writeToFile()
     
+    def writeToFile(self):
+        log_control.writeToLog(self.logContents)
+        print("written to log file")
+
     def openLink(self,link):
         webbrowser.open(link)
 
