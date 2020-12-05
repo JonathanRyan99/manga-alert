@@ -4,13 +4,18 @@ import requests
 #find a better was to accomodate the new half issues
 
 def readHeroAcademia(url,chapter):
+    #gets chapter list in bs4 object
     req = requests.get(url)
-    chapter = chapter + 2 #2 half issues currently
     soup = BeautifulSoup(req.text, "html.parser")
     chapterlist = soup.find("table",{"class": "chap_tab"})
     chapterlist = chapterlist.find_all("a")
+    
     #chapter list has newest issue as [0]
     released = len(chapterlist)
+    #issue of set is how many half issues there are these add an idex[] to the chapterlist without changing chapter number
+    issueOfSet = released - int(chapterlist[0].text[33:])
+    #if theres 2 half chapters and its on chapter 300, there are 302[] index values
+    chapter = chapter + issueOfSet 
     current = released - chapter 
     if (current <= released) & (current >= 0):
         print(chapterlist[current])
