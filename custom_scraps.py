@@ -1,36 +1,31 @@
 from bs4 import BeautifulSoup
 import requests
 
+#find a better was to accomodate the new half issues
+
 def readHeroAcademia(url,chapter):
-    url = url + str(chapter)
     req = requests.get(url)
+    chapter = chapter + 2 #2 half issues currently
     soup = BeautifulSoup(req.text, "html.parser")
-
-    #looks for chapter title to confirm valid page
-    try:
-        title = soup.find("h1",{"class": "entry-title"})
-        print(title.text) # if you delete this line it breaks, page will always return TRUE i have no idea why
-        page = True
-    except:
-        page = False
-
-#looks for upload timer, if present then the chapter has not been released
-    try:
-        countdown = soup.find("div",{"class": "entry-content"})
-        countdown = countdown.h1.strong
-        countdown = True
-    except:
-        countdown = False
-
-    #print("page: ", page , "countdown: ", countdown)
-    if (page == True) & (countdown == False):
-        return url     
-        
+    chapterlist = soup.find("table",{"class": "chap_tab"})
+    chapterlist = chapterlist.find_all("a")
+    #chapter list has newest issue as [0]
+    released = len(chapterlist)
+    current = released - chapter 
+    if (current <= released) & (current >= 0):
+        print(chapterlist[current])
+        link = chapterlist[current].get("href")
+        return link
     
+    
+    
+    
+    #print(len(chapterlist))
+ #22   
 
 
 #url is manga root page
-def NEL(url,chapter):
+def NELO(url,chapter):
     req = requests.get(url)
     soup = BeautifulSoup(req.text, "html.parser")
     chapterlist = soup.find_all("a",{"class": "chapter-name text-nowrap"})
@@ -48,5 +43,5 @@ def NEL(url,chapter):
 
 
 
-
-
+link = readHeroAcademia("https://w20.readheroacademia.com/",293)
+print(link)
