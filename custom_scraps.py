@@ -14,18 +14,12 @@ def readHeroAcademia(url,chapter):
     #issue of set is how many half issues there are these add an idex[] to the chapterlist without changing chapter number
     issueOfSet = released - int(chapterlist[0].text[33:])
     #if theres 2 half chapters and its on chapter 300, there are 302[] index values
-    chapter = chapter + issueOfSet 
+    chapter = int(chapter) + issueOfSet 
     current = released - chapter 
     if (current <= released) & (current >= 0):
         #print(chapterlist[current])
         link = chapterlist[current].get("href")
-        return link
-    
-    
-    
-    
-    #print(len(chapterlist))
- #22   
+        return link 
 
 
 #url is manga root page
