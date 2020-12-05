@@ -41,7 +41,7 @@ class program():
             
 
     def openLink(self,link):
-        print(link)
+        webbrowser.open(link)
 
         
 
