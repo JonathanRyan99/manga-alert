@@ -18,6 +18,26 @@ class program():
             self.addFrame(myFrame,self.logContents[i],i)
     
 
+
+    def addFrame(self,location,logItem,i):
+        self.button = Button(location, text="X", command= lambda: self.deleteFromFile(logItem) )
+        self.button.grid(row=(0+i),column= 0)
+        
+        self.label = Label(location, text=logItem['title'])
+        self.label.grid(row=(0+i),column=1)
+
+        self.label = Label(location, text=logItem['chapter'])
+        self.label.grid(row=(0+i),column=2)
+        
+        #button on/off if chapter is avalible
+        link = self.getChapterRelease(logItem)
+        if (str(link) == "None"):
+            self.button = Button(location, text="open", state=DISABLED)
+            self.button.grid(row=(0+i),column= 3)
+        else:
+            self.button = Button(location, text="open", command= lambda: (self.openLink(link), self.incrementLog(logItem) ) )
+            self.button.grid(row=(0+i),column= 3)
+
     def getChapterRelease(self,logItem):
         if logItem['scraper'] == "NELO":
             link = custom_scraps.NELO(logItem['url'],logItem['chapter'])
@@ -26,22 +46,6 @@ class program():
         if logItem['scraper'] == "readHeroAcademia":
             link = custom_scraps.readHeroAcademia(logItem['url'],logItem['chapter'])
             return link
-
-    def addFrame(self,location,logItem,i):
-        self.label = Label(location, text=logItem['title'])
-        self.label.grid(row=(0+i),column=0)
-
-        self.label = Label(location, text=logItem['chapter'])
-        self.label.grid(row=(0+i),column=1)
-        
-        link = self.getChapterRelease(logItem)
-        if (str(link) == "None"):
-            self.button = Button(location, text="open", state=DISABLED)
-            self.button.grid(row=(0+i),column= 2)
-        else:
-            self.button = Button(location, text="open", command= lambda: (self.openLink(link), self.incrementLog(logItem) ) )
-            self.button.grid(row=(0+i),column= 2)
-
 
     def incrementLog(self,logItem):
         for item in self.logContents:
@@ -54,6 +58,12 @@ class program():
     def writeToFile(self):
         log_control.writeToLog(self.logContents)
         print("written to log file")
+
+    def deleteFromFile(self, logItem):
+       index = self.logContents.index(logItem)
+       del self.logContents[index]
+       self.writeToFile()
+       print("index: ",index," removed")
 
     def openLink(self,link):
         webbrowser.open(link)
