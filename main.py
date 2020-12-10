@@ -5,38 +5,57 @@ import webbrowser
 from tkinter import *
 #to do
 #add a "new tracker button" so the user can start adding trackers in case of blank log.csv
-#add "delete tracker button to frame"
 #refresh interface after writing to file
 
 class program():
 
-    def __init__(self,master,logContents):
-        myFrame = Frame(master)
-        myFrame.pack()
-        self.logContents = logContents
-        for i in range(len(self.logContents)):
-            self.addFrame(myFrame,self.logContents[i],i)
-    
+    def __init__(self,master):
+        self.myFrame = Frame(master)
+        self.myFrame.pack()
+        self.generateInterface()
 
-
-    def addFrame(self,location,logItem,i):
-        self.button = Button(location, text="X", command= lambda: self.deleteFromFile(logItem) )
-        self.button.grid(row=(0+i),column= 0)
         
-        self.label = Label(location, text=logItem['title'])
-        self.label.grid(row=(0+i),column=1)
+        
+    #this kinda 
+    def refreshFrame(self):
+        self.myFrame.destroy()
+        self.__init__(root)
 
-        self.label = Label(location, text=logItem['chapter'])
-        self.label.grid(row=(0+i),column=2)
+          
+        
+        
+    def generateInterface(self):
+        self.button = Button(self.myFrame, text="refresh", command= lambda: self.refreshFrame() )
+        self.button.grid(row= 0, column=2)
+
+        
+
+        self.logContents = log_control.readFromLog()
+        for i in range(len(self.logContents)):
+            self.addFrame(self.logContents[i],i)
+    
+   
+    #possible: in the add frame need to create a frame, pack that
+    #at the moment these arent frames they're just grid ordered
+
+    def addFrame(self,logItem,i):
+        self.button = Button(self.myFrame, text="X", command= lambda: self.deleteFromFile(logItem) )
+        self.button.grid(row=(1+i),column= 1)
+        
+        self.label = Label(self.myFrame, text=logItem['title'])
+        self.label.grid(row=(1+i),column=2)
+
+        self.label = Label(self.myFrame, text=logItem['chapter'])
+        self.label.grid(row=(1+i),column=3)
         
         #button on/off if chapter is avalible
         link = self.getChapterRelease(logItem)
         if (str(link) == "None"):
-            self.button = Button(location, text="open", state=DISABLED)
-            self.button.grid(row=(0+i),column= 3)
+            self.button = Button(self.myFrame, text="open", state=DISABLED)
+            self.button.grid(row=(1+i),column= 4)
         else:
-            self.button = Button(location, text="open", command= lambda: (self.openLink(link), self.incrementLog(logItem) ) )
-            self.button.grid(row=(0+i),column= 3)
+            self.button = Button(self.myFrame, text="open", command= lambda: (self.openLink(link), self.incrementLog(logItem) ) )
+            self.button.grid(row=(1+i),column= 4)
 
     def getChapterRelease(self,logItem):
         if logItem['scraper'] == "NELO":
@@ -58,6 +77,8 @@ class program():
     def writeToFile(self):
         log_control.writeToLog(self.logContents)
         print("written to log file")
+        self.refreshFrame()
+
 
     def deleteFromFile(self, logItem):
        index = self.logContents.index(logItem)
@@ -68,7 +89,6 @@ class program():
     def openLink(self,link):
         webbrowser.open(link)
 
-        
 
 
 
@@ -76,14 +96,14 @@ class program():
 #links = ["www.academia.com","www.onePunch.com","www.fireForce.com"]
 
 #fieldnames = ['title', 'scraper','url', 'chapter']
-logContents = log_control.readFromLog()
+
 
 # for i in range(len(logContents)):
 #     print(logContents[i]['title'],logContents[i]['scraper'],logContents[i]['url'])
 
 
 root = Tk()
-myProgram = program(root,logContents)
+myProgram = program(root)
 root.mainloop()
 
 
